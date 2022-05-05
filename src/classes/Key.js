@@ -7,7 +7,10 @@ export default class Key {
     // this.shiftKey = shiftKey;
   }
 
-  getKeySymbol() {
+  getKeySymbol(shift) {
+    if (shift) {
+      return this.langKey[this.currentLang].shiftKey;
+    }
     return this.langKey[this.currentLang].key;
   }
 

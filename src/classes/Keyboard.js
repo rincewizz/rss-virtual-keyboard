@@ -3,9 +3,12 @@ import Key from './Key';
 export default class Keyboard {
   constructor({ layout, langs }) {
     this.layout = layout;
-    this.keys = [];
+    this.keys = {};
     this.langs = langs;
     this.currentLang = 'en';
+
+    // this.render();
+    document.body.addEventListener('keydown', this.keyDownHandler.bind(this));
   }
 
   render() {
@@ -20,15 +23,19 @@ export default class Keyboard {
       row.classList.add('keyboard__row');
       this.keyboardEl.append(row);
       for (let j = 0; j < this.layout[i].length; j += 1) {
-        // console.log(langEn[this.layout[i][j]]);
         const code = this.layout[i][j];
-        // const { key, shiftKey } = this.langs[this.currentLang][this.layout[i][j]];
         const langKey = { en: this.langs.en[code], ru: this.langs.ru[code] };
         const key = new Key({ code, langKey });
-        // this.keys.push()
+        this.keys[code] = key;
         // row.insertAdjacentHTML('beforeend', keyboardKey.getHtml());
         row.append(key.createButton());
       }
     }
+  }
+
+  keyDownHandler(e) {
+    console.log(e);
+    this.textareaEl.value += this.keys[e.code].getKeySymbol(e.shiftKey);
+    e.preventDefault();
   }
 }
