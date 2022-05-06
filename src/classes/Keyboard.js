@@ -19,6 +19,7 @@ export default class Keyboard {
 
   render() {
     this.textareaEl = document.createElement('textarea');
+    this.textareaEl.setAttribute('rows', 15);
     this.textareaEl.classList.add('textarea');
     this.keyboardEl = document.createElement('div');
     this.keyboardEl.classList.add('keyboard');

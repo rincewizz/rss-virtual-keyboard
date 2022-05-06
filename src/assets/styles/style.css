@@ -1,17 +1,85 @@
 .textarea{
-  width: 900px;
+  width: 1000px;
   margin: 0 auto;
   display: block;
+  box-sizing: border-box;
 }
 .keyboard{
-  width: 900px;
+  width: 1000px;
   margin: 0 auto;
+  background: #263238;
+  padding: 15px 10px;
+  box-sizing: border-box;
+  border-radius: 6px;
 }
 .keyboard__row {
   display: flex;
   justify-content: space-between;
-  gap: 5px;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.keyboard__row:last-child{
+  margin-bottom: 0;
 }
 .keyboard__key{
-  flex: 1 1 auto;
+  flex: 1 0 45px;
+  width: 45px;
+}
+
+.key{
+  color: #fff;
+  background: #404B50;
+  border-radius: 10px;
+  border: none;
+  height: 45px;
+  cursor: pointer;
+}
+
+.key--delete{
+  width: auto;
+  flex: 2 0 45px;
+}
+.key--tab{
+  width: auto;
+  flex: 4 0 45px;
+}
+.key--backspace{
+  width: auto;
+  flex: 6 0 45px;
+}
+.key--capslock{
+  width: auto;
+  flex: 5 0 45px;
+}
+.key--enter{
+  width: auto;
+  flex: 5 0 45px;
+}
+.key--shiftleft{
+  width: auto;
+  flex: 8 0 45px;
+}
+.key--shiftright{
+  width: auto;
+  flex: 10 0 45px;
+}
+.key--controlleft{
+  width: auto;
+  flex: 6 0 45px;
+}
+.key--altleft{
+  width: auto;
+  flex: 4 0 45px;
+}
+.key--space{
+  width: auto;
+  flex: 66 0 45px;
+}
+.key--altright{
+  width: auto;
+  flex: 4 0 45px;
+}
+.key--controlright{
+  width: auto;
+  flex: 2 0 45px;
 }

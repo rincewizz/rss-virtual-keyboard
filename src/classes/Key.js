@@ -27,7 +27,7 @@ export default class Key {
 
   createButton() {
     this.keyEl = document.createElement('button');
-    this.keyEl.classList.add('keyboard__key', 'key');
+    this.keyEl.classList.add('keyboard__key', 'key', `key--${this.code.toLowerCase()}`);
     this.keyEl.innerHTML = this.getKeySymbol();
     this.keyEl.keyObj = this;
     return this.keyEl;
