@@ -7,9 +7,15 @@ export default class Key {
     // this.shiftKey = shiftKey;
   }
 
-  getKeySymbol(shift) {
-    if (shift) {
+  getKeySymbol(modificator) {
+    if (modificator && this.langKey[this.currentLang].symbol) {
+      return this.langKey[this.currentLang].symbol;
+    }
+    if (modificator && modificator.shiftKey) {
       return this.langKey[this.currentLang].shiftKey;
+    }
+    if (modificator && modificator.capsLock) {
+      return this.langKey[this.currentLang].key.toUpperCase();
     }
     return this.langKey[this.currentLang].key;
   }
@@ -24,5 +30,9 @@ export default class Key {
     this.keyEl.innerHTML = this.getKeySymbol();
     this.keyEl.keyObj = this;
     return this.keyEl;
+  }
+
+  setText(text) {
+    this.keyEl.innerHTML = text;
   }
 }

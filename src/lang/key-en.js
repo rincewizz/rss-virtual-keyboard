@@ -62,6 +62,7 @@ export default {
   Tab: {
     key: 'Tab',
     shiftKey: null,
+    symbol: '\t',
   },
   KeyQ: {
     key: 'q',
@@ -114,6 +115,7 @@ export default {
   Enter: {
     key: 'Enter',
     shiftKey: null,
+    symbol: '\n',
   },
   CapsLock: {
     key: 'CapsLock',
@@ -168,7 +170,7 @@ export default {
     shiftKey: '|',
   },
   ShiftLeft: {
-    key: 'shiftKey',
+    key: 'Shift',
     shiftKey: null,
   },
   IntlBackslash: {
@@ -216,7 +218,7 @@ export default {
     shiftKey: '?',
   },
   ShiftRight: {
-    key: 'shiftKey',
+    key: 'Shift',
     shiftKey: null,
   },
   ControlLeft: {

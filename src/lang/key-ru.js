@@ -66,6 +66,7 @@ export default {
   Tab: {
     key: 'Tab',
     shiftKey: null,
+    symbol: '\t',
   },
   KeyQ: {
     key: 'й',
@@ -118,6 +119,7 @@ export default {
   Enter: {
     key: 'Enter',
     shiftKey: null,
+    symbol: '\n',
   },
   KeyA: {
     key: 'ф',
@@ -216,7 +218,7 @@ export default {
     shiftKey: ',',
   },
   ShiftRight: {
-    key: 'shiftKey',
+    key: 'Shift',
     shiftKey: null,
   },
   ControlLeft: {
