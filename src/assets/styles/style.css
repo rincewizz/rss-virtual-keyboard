@@ -23,7 +23,7 @@
 }
 .keyboard__key{
   flex: 1 0 45px;
-  width: 45px;
+  width: auto;
 }
 
 .key{
@@ -33,53 +33,80 @@
   border: none;
   height: 45px;
   cursor: pointer;
+  transition: 0.3s;
+  border: 1px solid #09384e;
+  box-shadow: 0px 2px 0 #001d2a, 2px 4px 6px #00628d;
+  position: relative;
+  overflow: hidden;
+}
+.key:hover{
+  background: #60686f;
+}
+.key:active{
+  text-shadow: -1px -1px 0 #404b50;
+  /* transition: all 250ms linear; */
+  border: 1px solid #09384e;
+  box-shadow: 0px 1px 0 #001d2a, 0px 1px 1px #00628d;
+}
+.key::before{
+  content: '';
+  display: block;
+  width: 0%;
+  height: 0%;
+  opacity: 0;
+  line-height: 40px;
+  border-radius: 50%;
+  background: #00628d;
+  position: absolute;
+  transition: all .2s ease-Out;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.key:active::before{
+  width: 200%;
+  height: 200%;
+  opacity: 1;
+}
+
+.key__main{
+  position: relative;
+  z-index: 10;
 }
 
 .key--delete{
-  width: auto;
   flex: 2 0 45px;
 }
 .key--tab{
-  width: auto;
   flex: 4 0 45px;
 }
 .key--backspace{
-  width: auto;
   flex: 6 0 45px;
 }
 .key--capslock{
-  width: auto;
   flex: 5 0 45px;
 }
 .key--enter{
-  width: auto;
   flex: 5 0 45px;
 }
 .key--shiftleft{
-  width: auto;
   flex: 8 0 45px;
 }
 .key--shiftright{
-  width: auto;
   flex: 10 0 45px;
 }
 .key--controlleft{
-  width: auto;
   flex: 6 0 45px;
 }
 .key--altleft{
-  width: auto;
   flex: 4 0 45px;
 }
 .key--space{
-  width: auto;
   flex: 66 0 45px;
 }
 .key--altright{
-  width: auto;
   flex: 4 0 45px;
 }
 .key--controlright{
-  width: auto;
   flex: 2 0 45px;
 }

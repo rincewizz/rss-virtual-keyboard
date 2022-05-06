@@ -28,12 +28,12 @@ export default class Key {
   createButton() {
     this.keyEl = document.createElement('button');
     this.keyEl.classList.add('keyboard__key', 'key', `key--${this.code.toLowerCase()}`);
-    this.keyEl.innerHTML = this.getKeySymbol();
+    this.keyEl.innerHTML = `<span class="key__main">${this.getKeySymbol()}</span>`;
     this.keyEl.keyObj = this;
     return this.keyEl;
   }
 
   setText(text) {
-    this.keyEl.innerHTML = text;
+    this.keyEl.innerHTML = `<span class="key__main">${text}</span>`;
   }
 }
