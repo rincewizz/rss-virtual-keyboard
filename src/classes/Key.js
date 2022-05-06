@@ -20,8 +20,9 @@ export default class Key {
     return this.langKey[this.currentLang].key;
   }
 
-  getHtml() {
-    return `<button class="keyboard__key key">${this.getKeySymbol()}</button>`;
+  changeLanguage(lang) {
+    this.currentLang = lang;
+    this.keyEl.innerHTML = this.getKeySymbol();
   }
 
   createButton() {

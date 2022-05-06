@@ -14,4 +14,4 @@ const layout = [
 ];
 
 const keyboard = new Keyboard({ layout, langs });
-keyboard.render();
+keyboard.init();
