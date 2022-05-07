@@ -42,13 +42,15 @@ export default class Keyboard {
 
   keyDownHandler(e) {
     console.log(e);
-    // this.textareaEl.value += this.keys[e.code].getKeySymbol(e.shiftKey);
-    this.pressKey(this.keys[e.code], e);
-    // e.preventDefault();
+    if (this.keys[e.code]) {
+      this.pressKey(this.keys[e.code], e);
+    }
   }
 
   keyUpHandler(e) {
-    this.unpressKey(this.keys[e.code], e);
+    if (this.keys[e.code]) {
+      this.unpressKey(this.keys[e.code], e);
+    }
   }
 
   mouseDownHandler(e) {
