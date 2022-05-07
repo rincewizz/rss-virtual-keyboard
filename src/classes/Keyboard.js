@@ -66,6 +66,10 @@ export default class Keyboard {
   }
 
   pressKey(keyObj, e) {
+    this.textareaEl.focus();
+    if (!keyObj.keyEl.classList.contains('key--active')) {
+      keyObj.keyEl.classList.add('key--active');
+    }
     const modificator = {
       capsLock: this.capsLock,
       shiftKey: e.shiftKey,
@@ -73,8 +77,9 @@ export default class Keyboard {
       altKey: e.altKey,
       ctrlKey: e.ctrlKey,
     };
-    if (!['Shift', 'Ctrl', 'Alt', 'Meta', 'CapsLock'].includes(keyObj.langKey[this.currentLang].key) && !e.ctrlKey) {
-      this.textareaEl.value += keyObj.getKeySymbol(modificator);
+    const spetialKeys = ['Shift', 'Ctrl', 'Alt', 'Meta', 'CapsLock', 'Delete', 'Backspace', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+    if (!spetialKeys.includes(keyObj.langKey[this.currentLang].key) && !e.ctrlKey) {
+      this.printText(keyObj.getKeySymbol(modificator));
 
       e.preventDefault();
     }
@@ -87,13 +92,103 @@ export default class Keyboard {
         this.changeLanguage();
       }
     }
+    if (keyObj.langKey[this.currentLang].key === 'Delete') {
+      const { selectionStart } = this.textareaEl;
+      let { selectionEnd } = this.textareaEl;
+      if (selectionStart === selectionEnd) {
+        selectionEnd += 1;
+      }
+      this.textareaEl.setRangeText('', selectionStart, selectionEnd, 'start');
+      e.preventDefault();
+    }
+    if (keyObj.langKey[this.currentLang].key === 'Backspace') {
+      let { selectionStart } = this.textareaEl;
+      const { selectionEnd } = this.textareaEl;
+      if (selectionStart === selectionEnd && selectionStart > 0) { selectionStart -= 1; }
+      this.textareaEl.setRangeText('', selectionStart, selectionEnd, 'start');
+      e.preventDefault();
+    }
+    if (keyObj.langKey[this.currentLang].key === 'ArrowLeft') {
+      if (this.textareaEl.selectionStart > 0) {
+        this.textareaEl.selectionStart -= 1;
+        this.textareaEl.selectionEnd = this.textareaEl.selectionStart;
+      }
+      e.preventDefault();
+    }
+    if (keyObj.langKey[this.currentLang].key === 'ArrowRight') {
+      this.textareaEl.selectionStart += 1;
+      this.textareaEl.selectionEnd = this.textareaEl.selectionStart;
+      e.preventDefault();
+    }
+    if (keyObj.langKey[this.currentLang].key === 'ArrowDown') {
+      const rows = this.textareaEl.value.split('\n');
+      const { selectionStart } = this.textareaEl;
+      let cursorRow = 0;
+      let cursorRowPosition = selectionStart;
+      let nextPosition = 0;
+
+      for (let i = 0; i < rows.length; i += 1) {
+        nextPosition += rows[i].length;
+        if (rows[i].length >= cursorRowPosition) {
+          cursorRow = i;
+          break;
+        }
+        cursorRowPosition -= rows[i].length + 1;
+      }
+      if (!rows[cursorRow + 1]) {
+        nextPosition = this.textareaEl.value.length;
+      } else if (cursorRowPosition <= rows[cursorRow + 1].length) {
+        nextPosition += cursorRowPosition + cursorRow + 1;
+      } else {
+        nextPosition += rows[cursorRow + 1].length + cursorRow + 1;
+      }
+
+      this.textareaEl.selectionStart = nextPosition;
+      this.textareaEl.selectionEnd = nextPosition;
+      e.preventDefault();
+    }
+    if (keyObj.langKey[this.currentLang].key === 'ArrowUp') {
+      const rows = this.textareaEl.value.split('\n');
+      const { selectionStart } = this.textareaEl;
+      let cursorRow = 0;
+      let cursorRowPosition = selectionStart;
+      let nextPosition = 0;
+
+      for (let i = 0; i < rows.length; i += 1) {
+        if (rows[i].length >= cursorRowPosition) {
+          cursorRow = i;
+          break;
+        }
+        nextPosition += rows[i].length;
+        cursorRowPosition -= rows[i].length + 1;
+      }
+      if (!rows[cursorRow - 1]) {
+        nextPosition = 0;
+      } else if (cursorRowPosition <= rows[cursorRow - 1].length) {
+        nextPosition += -rows[cursorRow - 1].length + cursorRowPosition + cursorRow - 1;
+      } else {
+        nextPosition += cursorRow - 1;
+      }
+
+      this.textareaEl.selectionStart = nextPosition;
+      this.textareaEl.selectionEnd = nextPosition;
+      e.preventDefault();
+    }
   }
 
   unpressKey(keyObj, e) {
+    if (keyObj.keyEl.classList.contains('key--active')) {
+      keyObj.keyEl.classList.remove('key--active');
+    }
     if (keyObj.langKey[this.currentLang].key === 'Shift') {
       this.shift = false;
     }
     this.switchUpperCase(false);
+  }
+
+  printText(text) {
+    const { selectionStart, selectionEnd } = this.textareaEl;
+    this.textareaEl.setRangeText(text, selectionStart, selectionEnd, 'end');
   }
 
   switchUpperCase(upper) {

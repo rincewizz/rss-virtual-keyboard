@@ -8,6 +8,9 @@ export default class Key {
   }
 
   getKeySymbol(modificator) {
+    if (this.langKey[this.currentLang].icon) {
+      return this.langKey[this.currentLang].icon;
+    }
     if (modificator && this.langKey[this.currentLang].symbol) {
       return this.langKey[this.currentLang].symbol;
     }

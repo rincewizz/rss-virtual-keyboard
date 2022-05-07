@@ -242,20 +242,24 @@ export default {
     shiftKey: null,
   },
   ArrowLeft: {
-    key: '&larr;',
+    key: 'ArrowLeft',
     shiftKey: null,
+    icon: '←',
   },
   ArrowUp: {
-    key: '&uarr;',
+    key: 'ArrowUp',
     shiftKey: null,
+    icon: '↑',
   },
   ArrowDown: {
-    key: '&darr;',
+    key: 'ArrowDown',
     shiftKey: null,
+    icon: '↓',
   },
   ArrowRight: {
-    key: '&rarr;',
+    key: 'ArrowRight',
     shiftKey: null,
+    icon: '→',
   },
   MetaLeft: {
     key: 'Meta',

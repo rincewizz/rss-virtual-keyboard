@@ -33,18 +33,17 @@
   border: none;
   height: 45px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all .3s ease-Out;
   border: 1px solid #09384e;
   box-shadow: 0px 2px 0 #001d2a, 2px 4px 6px #00628d;
   position: relative;
   overflow: hidden;
 }
 .key:hover{
-  background: #60686f;
+  /* background: #60686f; */
 }
-.key:active{
+.key:active, .key.key--active{
   text-shadow: -1px -1px 0 #404b50;
-  /* transition: all 250ms linear; */
   border: 1px solid #09384e;
   box-shadow: 0px 1px 0 #001d2a, 0px 1px 1px #00628d;
 }
@@ -57,13 +56,14 @@
   line-height: 40px;
   border-radius: 50%;
   background: #00628d;
+  background: #0096d8;
   position: absolute;
-  transition: all .2s ease-Out;
+  transition: all .3s ease-Out;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.key:active::before{
+.key:active::before, .key.key--active::before{
   width: 200%;
   height: 200%;
   opacity: 1;
