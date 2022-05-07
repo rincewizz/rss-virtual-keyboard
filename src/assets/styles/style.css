@@ -40,7 +40,7 @@
   overflow: hidden;
 }
 .key:hover{
-  /* background: #60686f; */
+  background: #60686f;
 }
 .key:active, .key.key--active{
   text-shadow: -1px -1px 0 #404b50;

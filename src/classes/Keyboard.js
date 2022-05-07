@@ -137,7 +137,7 @@ export default class Keyboard {
         }
         cursorRowPosition -= rows[i].length + 1;
       }
-      if (!rows[cursorRow + 1]) {
+      if (rows[cursorRow + 1] === undefined) {
         nextPosition = this.textareaEl.value.length;
       } else if (cursorRowPosition <= rows[cursorRow + 1].length) {
         nextPosition += cursorRowPosition + cursorRow + 1;
@@ -164,7 +164,7 @@ export default class Keyboard {
         nextPosition += rows[i].length;
         cursorRowPosition -= rows[i].length + 1;
       }
-      if (!rows[cursorRow - 1]) {
+      if (rows[cursorRow - 1] === undefined) {
         nextPosition = 0;
       } else if (cursorRowPosition <= rows[cursorRow - 1].length) {
         nextPosition += -rows[cursorRow - 1].length + cursorRowPosition + cursorRow - 1;
