@@ -43,6 +43,9 @@
 .key:hover{
   background: #60686f;
 }
+.key--on, .key--on:hover{
+  background: #0096d8;
+}
 .key:active, .key.key--active{
   text-shadow: -1px -1px 0 #404b50;
   border: 1px solid #09384e;

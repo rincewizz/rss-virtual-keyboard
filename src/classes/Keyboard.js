@@ -60,13 +60,15 @@ export default class Keyboard {
       this.mouseTarget = key;
       this.pressKey(key.keyObj, e);
 
-      const repeater = () => {
-        this.timerRepeater = setTimeout(() => {
-          this.pressKey(key.keyObj, e);
-          repeater();
-        }, 35);
-      };
-      this.timerDelay = setTimeout(repeater, 500);
+      if (!['Shift', 'Ctrl', 'Alt', 'Meta', 'CapsLock'].includes(key.keyObj.langKey[this.currentLang].key)) {
+        const repeater = () => {
+          this.timerRepeater = setTimeout(() => {
+            this.pressKey(key.keyObj, e);
+            repeater();
+          }, 35);
+        };
+        this.timerDelay = setTimeout(repeater, 500);
+      }
     }
   }
 
@@ -120,6 +122,13 @@ export default class Keyboard {
     }
     if (keyObj.langKey[this.currentLang].key === 'CapsLock'
       || keyObj.langKey[this.currentLang].key === 'Shift') {
+      if (keyObj.langKey[this.currentLang].key === 'CapsLock') {
+        if (this.capsLock) {
+          keyObj.keyEl.classList.remove('key--on');
+        } else {
+          keyObj.keyEl.classList.add('key--on');
+        }
+      }
       this.switchUpperCase(keyObj.langKey[this.currentLang].key);
     }
     if (keyObj.langKey[this.currentLang].key === 'Ctrl' || keyObj.langKey[this.currentLang].key === 'Alt') {
@@ -216,8 +225,8 @@ export default class Keyboard {
       keyObj.keyEl.classList.remove('key--active');
       // keyObj.animationEnd = false;
     } else if (keyObj.keyEl.classList.contains('key--active') && keyObj.animation) {
-      const transitionendHandler = (e) => {
-        if (e.pseudoElement === '::before') {
+      const transitionendHandler = (event) => {
+        if (event.pseudoElement === '::before') {
           if (keyObj.keyEl.classList.contains('key--active')) {
             keyObj.keyEl.classList.remove('key--active');
             keyObj.animation = false;
@@ -231,8 +240,7 @@ export default class Keyboard {
     if (keyObj.langKey[this.currentLang].key === 'Shift') {
       this.shift = false;
     }
-    if (keyObj.langKey[this.currentLang].key === 'CapsLock'
-      || keyObj.langKey[this.currentLang].key === 'Shift') {
+    if (keyObj.langKey[this.currentLang].key === 'Shift') {
       this.switchUpperCase(false);
     }
   }
