@@ -3,8 +3,6 @@ export default class Key {
     this.code = code;
     this.langKey = langKey;
     this.currentLang = currentLang;
-    // this.key = key;
-    // this.shiftKey = shiftKey;
   }
 
   getKeySymbol(modificator) {

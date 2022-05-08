@@ -52,7 +52,6 @@ export default class Keyboard {
         const langKey = { en: this.langs.en[code], ru: this.langs.ru[code] };
         const key = new Key({ code, langKey, currentLang: this.currentLang });
         this.keys[code] = key;
-        // row.insertAdjacentHTML('beforeend', keyboardKey.getHtml());
         row.append(key.createButton());
       }
     }
@@ -245,7 +244,6 @@ export default class Keyboard {
   unpressKey(keyObj) {
     if (keyObj.keyEl.classList.contains('key--active') && !keyObj.animation) {
       keyObj.keyEl.classList.remove('key--active');
-      // keyObj.animationEnd = false;
     } else if (keyObj.keyEl.classList.contains('key--active') && keyObj.animation) {
       const transitionendHandler = (event) => {
         if (event.pseudoElement === '::before') {
