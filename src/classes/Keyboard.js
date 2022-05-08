@@ -15,6 +15,7 @@ export default class Keyboard {
     document.body.addEventListener('keyup', this.keyUpHandler.bind(this));
     this.keyboardEl.addEventListener('mousedown', this.mouseDownHandler.bind(this));
     this.keyboardEl.addEventListener('mouseup', this.mouseUpHandler.bind(this));
+    this.keyboardEl.addEventListener('mouseleave', this.mouseLeaveHandler.bind(this));
   }
 
   render() {
@@ -58,13 +59,31 @@ export default class Keyboard {
     if (key) {
       this.mouseTarget = key;
       this.pressKey(key.keyObj, e);
+
+      const repeater = () => {
+        this.timerRepeater = setTimeout(() => {
+          this.pressKey(key.keyObj, e);
+          repeater();
+        }, 35);
+      };
+      this.timerDelay = setTimeout(repeater, 500);
     }
   }
 
   mouseUpHandler(e) {
+    this.mouseUnpress(e);
+  }
+
+  mouseLeaveHandler(e) {
+    this.mouseUnpress(e);
+  }
+
+  mouseUnpress(e) {
     const key = this.mouseTarget;
     if (key) {
       this.unpressKey(key.keyObj, e);
+      clearTimeout(this.timerDelay);
+      clearTimeout(this.timerRepeater);
     }
   }
 
