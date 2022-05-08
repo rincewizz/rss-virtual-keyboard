@@ -56,13 +56,13 @@ export default class Keyboard {
   mouseDownHandler(e) {
     const key = e.target.closest('.key');
     if (key) {
+      this.mouseTarget = key;
       this.pressKey(key.keyObj, e);
     }
   }
 
   mouseUpHandler(e) {
-    console.log(e);
-    const key = e.target.closest('.key');
+    const key = this.mouseTarget;
     if (key) {
       this.unpressKey(key.keyObj, e);
     }
