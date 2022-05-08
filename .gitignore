@@ -1,2 +1,6 @@
 node_modules
 src
+webpack.config.js
+.eslintrc
+package-lock.json
+package.json
