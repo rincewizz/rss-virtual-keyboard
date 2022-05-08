@@ -296,8 +296,13 @@ export default class Keyboard {
     } else {
       this.setLangSettings('en');
     }
+    const spetialKeys = ['Shift', 'Ctrl', 'Alt', 'Meta', 'CapsLock', 'Delete', 'Backspace', 'ArrowUp', 'Tab', 'Enter'];
     Object.values(this.keys).forEach((key) => {
-      key.changeLanguage(this.currentLang);
+      let modificator = '';
+      if (!spetialKeys.includes(key.langKey[this.currentLang].key)) {
+        modificator = { capsLock: this.capsLock };
+      }
+      key.changeLanguage(this.currentLang, modificator);
     });
   }
 }

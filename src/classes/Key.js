@@ -21,9 +21,9 @@ export default class Key {
     return this.langKey[this.currentLang].key;
   }
 
-  changeLanguage(lang) {
+  changeLanguage(lang, modificator) {
     this.currentLang = lang;
-    this.keyEl.querySelector('.key__main').innerHTML = this.getKeySymbol();
+    this.keyEl.querySelector('.key__main').innerHTML = this.getKeySymbol(modificator);
   }
 
   createButton() {
