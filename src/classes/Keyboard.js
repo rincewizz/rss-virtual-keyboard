@@ -61,6 +61,7 @@ export default class Keyboard {
   }
 
   mouseUpHandler(e) {
+    console.log(e);
     const key = e.target.closest('.key');
     if (key) {
       this.unpressKey(key.keyObj, e);
@@ -69,8 +70,21 @@ export default class Keyboard {
 
   pressKey(keyObj, e) {
     this.textareaEl.focus();
+
     if (!keyObj.keyEl.classList.contains('key--active')) {
       keyObj.keyEl.classList.add('key--active');
+      keyObj.animation = true;
+
+      const transitionendHandler = (e) => {
+        if (e.pseudoElement === '::before') {
+          if (keyObj.keyEl.classList.contains('key--active')) {
+            keyObj.animation = false;
+          }
+          keyObj.keyEl.removeEventListener('transitionend', transitionendHandler);
+        }
+      };
+
+      keyObj.keyEl.addEventListener('transitionend', transitionendHandler);
     }
     const modificator = {
       capsLock: this.capsLock,
@@ -179,13 +193,29 @@ export default class Keyboard {
   }
 
   unpressKey(keyObj, e) {
-    if (keyObj.keyEl.classList.contains('key--active')) {
+    if (keyObj.keyEl.classList.contains('key--active') && !keyObj.animation) {
       keyObj.keyEl.classList.remove('key--active');
+      // keyObj.animationEnd = false;
+    } else if (keyObj.keyEl.classList.contains('key--active') && keyObj.animation) {
+      const transitionendHandler = (e) => {
+        if (e.pseudoElement === '::before') {
+          if (keyObj.keyEl.classList.contains('key--active')) {
+            keyObj.keyEl.classList.remove('key--active');
+            keyObj.animation = false;
+          }
+          keyObj.keyEl.removeEventListener('transitionend', transitionendHandler);
+        }
+      };
+      keyObj.keyEl.addEventListener('transitionend', transitionendHandler);
     }
+
     if (keyObj.langKey[this.currentLang].key === 'Shift') {
       this.shift = false;
     }
-    this.switchUpperCase(false);
+    if (keyObj.langKey[this.currentLang].key === 'CapsLock'
+      || keyObj.langKey[this.currentLang].key === 'Shift') {
+      this.switchUpperCase(false);
+    }
   }
 
   printText(text) {
