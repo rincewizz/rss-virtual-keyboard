@@ -9,7 +9,21 @@ export default class Keyboard {
     this.capsLock = false;
   }
 
+  getLangSettings() {
+    const lang = localStorage.getItem('lang');
+    if (lang) {
+      return lang;
+    }
+    return this.currentLang;
+  }
+
+  setLangSettings(lang) {
+    localStorage.setItem('lang', lang);
+    this.currentLang = lang;
+  }
+
   init() {
+    this.currentLang = this.getLangSettings();
     this.render();
     document.body.addEventListener('keydown', this.keyDownHandler.bind(this));
     document.body.addEventListener('keyup', this.keyUpHandler.bind(this));
@@ -19,6 +33,9 @@ export default class Keyboard {
   }
 
   render() {
+    this.title = document.createElement('h1');
+    this.title.innerHTML = 'Virtual Keyboard';
+    document.body.append(this.title);
     this.textareaEl = document.createElement('textarea');
     this.textareaEl.setAttribute('rows', 15);
     this.textareaEl.classList.add('textarea');
@@ -33,12 +50,18 @@ export default class Keyboard {
       for (let j = 0; j < this.layout[i].length; j += 1) {
         const code = this.layout[i][j];
         const langKey = { en: this.langs.en[code], ru: this.langs.ru[code] };
-        const key = new Key({ code, langKey });
+        const key = new Key({ code, langKey, currentLang: this.currentLang });
         this.keys[code] = key;
         // row.insertAdjacentHTML('beforeend', keyboardKey.getHtml());
         row.append(key.createButton());
       }
     }
+    this.osInfo = document.createElement('div');
+    this.changeLangInfo = document.createElement('div');
+    document.body.append(this.osInfo);
+    document.body.append(this.changeLangInfo);
+    this.osInfo.outerHTML = '<div class="os-info">Клавиатура создана в операционной системе Arch Linux</div>';
+    this.changeLangInfo.outerHTML = '<div class="change-lang-info">Для переключения языка: <b>Ctrl + Alt</b></div>';
   }
 
   keyDownHandler(e) {
@@ -272,9 +295,9 @@ export default class Keyboard {
 
   changeLanguage() {
     if (this.currentLang === 'en') {
-      this.currentLang = 'ru';
+      this.setLangSettings('ru');
     } else {
-      this.currentLang = 'en';
+      this.setLangSettings('en');
     }
     Object.values(this.keys).forEach((key) => {
       key.changeLanguage(this.currentLang);

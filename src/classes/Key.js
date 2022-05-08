@@ -1,8 +1,8 @@
 export default class Key {
-  constructor({ code, langKey }) {
+  constructor({ code, langKey, currentLang }) {
     this.code = code;
     this.langKey = langKey;
-    this.currentLang = 'en';
+    this.currentLang = currentLang;
     // this.key = key;
     // this.shiftKey = shiftKey;
   }
