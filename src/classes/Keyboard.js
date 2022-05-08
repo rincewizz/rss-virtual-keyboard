@@ -65,7 +65,6 @@ export default class Keyboard {
   }
 
   keyDownHandler(e) {
-    console.log(e);
     if (this.keys[e.code]) {
       this.pressKey(this.keys[e.code], e);
     }
@@ -117,12 +116,12 @@ export default class Keyboard {
 
     if (!keyObj.keyEl.classList.contains('key--active')) {
       keyObj.keyEl.classList.add('key--active');
-      keyObj.animation = true;
+      keyObj.setAnimation(true);
 
-      const transitionendHandler = (e) => {
-        if (e.pseudoElement === '::before') {
+      const transitionendHandler = (event) => {
+        if (event.pseudoElement === '::before') {
           if (keyObj.keyEl.classList.contains('key--active')) {
-            keyObj.animation = false;
+            keyObj.setAnimation(false);
           }
           keyObj.keyEl.removeEventListener('transitionend', transitionendHandler);
         }
@@ -243,7 +242,7 @@ export default class Keyboard {
     }
   }
 
-  unpressKey(keyObj, e) {
+  unpressKey(keyObj) {
     if (keyObj.keyEl.classList.contains('key--active') && !keyObj.animation) {
       keyObj.keyEl.classList.remove('key--active');
       // keyObj.animationEnd = false;
@@ -252,7 +251,7 @@ export default class Keyboard {
         if (event.pseudoElement === '::before') {
           if (keyObj.keyEl.classList.contains('key--active')) {
             keyObj.keyEl.classList.remove('key--active');
-            keyObj.animation = false;
+            keyObj.setAnimation(false);
           }
           keyObj.keyEl.removeEventListener('transitionend', transitionendHandler);
         }

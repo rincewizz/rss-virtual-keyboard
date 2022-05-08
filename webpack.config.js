@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const ESLintPlugin = require('eslint-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
@@ -17,7 +17,7 @@ module.exports = {
       template: './index.html',
     }),
     new MiniCssExtractPlugin(),
-    // new ESLintPlugin(),
+    new ESLintPlugin(),
   ],
   module: {
     rules: [

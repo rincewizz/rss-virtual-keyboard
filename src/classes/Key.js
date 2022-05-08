@@ -39,4 +39,12 @@ export default class Key {
   setText(text) {
     this.keyEl.innerHTML = `<span class="key__main">${text}</span>`;
   }
+
+  setAnimation(animation) {
+    this.animation = animation;
+  }
+
+  getAnimation() {
+    return this.animation;
+  }
 }
